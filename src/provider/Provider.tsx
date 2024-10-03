@@ -8,4 +8,5 @@ export function Providers({ children }: { children: React.ReactNode }) {
   <SessionProvider>
     <NextUIProvider>{children}</NextUIProvider>
   </SessionProvider>;
+
 }
