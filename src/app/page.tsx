@@ -1,7 +1,10 @@
+import Temp from '@/components/template/temp';
+import Headers from '../components/organisms/Headers';
 export default function Home() {
   return (
-    <div className=''>
-      <h1>메인화면</h1>
-    </div>
+    <>
+      <Headers />
+      <Temp />
+    </>
   );
 }
