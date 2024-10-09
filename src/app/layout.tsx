@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Providers } from '@/provider/Provider';
+import Providers from '@/provider/Provider';
 
 export const metadata: Metadata = {
   title: 'ssafeine',
