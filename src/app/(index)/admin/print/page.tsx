@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function page() {
-  return <>admin</>;
+  return <div>admin print</div>;
 }

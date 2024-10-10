@@ -24,12 +24,12 @@ export default function Menu() {
       </li>
       <li>
         <Button color='primary' variant='light'>
-          <Link href='/admin'>관리자페이지</Link>
+          <Link href='/mypage'>마이페이지</Link>
         </Button>
       </li>
       <li>
         <Button color='primary' variant='light'>
-          <Link href='/mypage'>마이페이지</Link>
+          <Link href='/admin'>관리자페이지</Link>
         </Button>
       </li>
       <li>
