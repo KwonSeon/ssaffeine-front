@@ -5,7 +5,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Headers />
-      <>{children}</>
+      <div className="max-w-[1024px] m-auto">{children}</div>
     </>
   );
 }

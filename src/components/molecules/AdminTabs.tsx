@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Tab, Tabs } from '@nextui-org/react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { Key } from 'react';
+import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import React, { Key } from "react";
 
 export default function AdminTabs() {
   const pathname = usePathname();
@@ -14,21 +14,37 @@ export default function AdminTabs() {
     router.push(path); // 경로 변경
   };
   return (
-    <div className='flex w-full flex-col'>
-      <Tabs aria-label='Options' isVertical selectedKey={pathname} onSelectionChange={handleTabChange}>
-        <Tab key='/admin' title='admin'>
-          <Link href='/admin'></Link>
-        </Tab>
-        <Tab key='/admin/order' title='order'>
-          <Link href='/admin/order'></Link>
-        </Tab>
-        <Tab key='/admin/print' title='print'>
-          <Link href='/admin/print'></Link>
-        </Tab>
-        <Tab key='/admin/write' title='write'>
-          <Link href='/admin/write'></Link>
-        </Tab>
-      </Tabs>
-    </div>
+    <Card isBlurred shadow="md" className="w-fit h-fit">
+      <CardBody>
+        <Tabs
+          aria-label="Options"
+          isVertical
+          selectedKey={pathname}
+          onSelectionChange={handleTabChange}
+          color="primary"
+          className="overflow-hidden"
+          classNames={{
+            cursor: "bg-[#674736] hover:bg-[#7D5C3B] active:bg-[#d0d0d0] ",
+            tabContent: "text-black hover:text-[#674736] active:text-[#7D5C3B]",
+            tabList: "bg-white",
+            tab: "p-4",
+            panel: "p-0",
+          }}
+        >
+          <Tab key="/admin" title="주문현황">
+            <Link href="/admin"></Link>
+          </Tab>
+          <Tab key="/admin/order" title="order">
+            <Link href="/admin/order"></Link>
+          </Tab>
+          <Tab key="/admin/print" title="print">
+            <Link href="/admin/print"></Link>
+          </Tab>
+          <Tab key="/admin/write" title="write">
+            <Link href="/admin/write"></Link>
+          </Tab>
+        </Tabs>
+      </CardBody>
+    </Card>
   );
 }
