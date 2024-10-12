@@ -18,7 +18,17 @@ export default function AdminTabs() {
   const isVertical = useResizeMenubar();
 
   // 현재 경로를 기준으로 선택된 탭을 설정
-  const selectedKey = pathname.split('/').slice(0, 3).join('/');
+  // const selectedKey = pathname.split('/').slice(0, 3).join('/');
+  // console.log('pathname:', pathname);
+  // console.log('selectedKey:', selectedKey);
+  // 동적 경로 처리
+  const selectedKey = (() => {
+    if (pathname.startsWith('/admin/print')) {
+      return '/admin/print'; // 동적 경로 포함 시 고정된 부분만 사용
+    } else {
+      return pathname; // 기본 경로
+    }
+  })();
 
   return (
     <Card isBlurred shadow='md' className='w-full lg:w-fit h-fit min-w-[112px]'>
