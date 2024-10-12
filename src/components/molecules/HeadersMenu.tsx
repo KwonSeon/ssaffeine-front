@@ -1,7 +1,6 @@
 'use client';
 import { Button, NavbarMenu, NavbarMenuItem } from '@nextui-org/react';
 import Link from 'next/link';
-import React from 'react';
 
 export default function HeadersMenu({ setIsMenuOpen }: { setIsMenuOpen: (value: boolean) => void }) {
   return (
