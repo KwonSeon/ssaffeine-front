@@ -1,6 +1,6 @@
 'use client';
 import { Button, NavbarItem } from '@nextui-org/react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function Menu() {
@@ -10,27 +10,29 @@ export default function Menu() {
     setState(!state);
   };
 
+  const router = useRouter();
+
   return (
     <>
       <NavbarItem>
-        <Link href='/order'>
-          <Button variant='light'>주문하기</Button>
-        </Link>
+        <Button variant='light' onClick={() => router.push('/order')}>
+          주문하기
+        </Button>
       </NavbarItem>
       <NavbarItem>
-        <Link href='/notice'>
-          <Button variant='light'>공지사항</Button>
-        </Link>
+        <Button variant='light' onClick={() => router.push('/notice')}>
+          공지사항
+        </Button>
       </NavbarItem>
       <NavbarItem>
-        <Link href='/mypage'>
-          <Button variant='light'>마이페이지</Button>
-        </Link>
+        <Button variant='light' onClick={() => router.push('/mypage')}>
+          마이페이지
+        </Button>
       </NavbarItem>
       <NavbarItem>
-        <Link href='/admin'>
-          <Button variant='light'>관리자페이지</Button>
-        </Link>
+        <Button variant='light' onClick={() => router.push('/admin')}>
+          관리자페이지
+        </Button>
       </NavbarItem>
       <NavbarItem>
         <Button color='primary' variant='shadow' onClick={handleClick}>

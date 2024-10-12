@@ -3,68 +3,44 @@ import {
   Button,
   Chip,
   Selection,
-  Tab,
   Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
   TableRow,
-  Tabs,
 } from '@nextui-org/react';
 import { useState } from 'react';
+import AchievementChips from '../molecules/AchievementChips';
+import GroupTabs from '../molecules/GroupTabs';
+import StatusTabs from '../molecules/StatusTabs';
+import WeekdayTabs from '../molecules/WeekdayTabs';
 
 export default function SurveyDashboardTemplate() {
   const [selectedKey, setSelectedKey] = useState<Selection>(new Set([]));
 
+  const achievement = [
+    { day: 1, achievement: 24 },
+    { day: 2, achievement: 16 },
+    { day: 3, achievement: 16 },
+    { day: 4, achievement: 16 },
+    { day: 5, achievement: 16 },
+  ];
+
   return (
     <>
       <div className='flex flex-col overflow-auto w-full'>
-        <Tabs aria-label='Days' color='primary'>
-          <Tab key='0' title='전체' />
-          <Tab key='1' title='월' />
-          <Tab key='2' title='화' />
-          <Tab key='3' title='수' />
-          <Tab key='4' title='목' />
-          <Tab key='5' title='금' />
-        </Tabs>
-        <Tabs aria-label='Group' color='warning'>
-          <Tab key='0' title='전체' />
-          <Tab key='1' title='1반' />
-          <Tab key='2' title='2반' />
-          <Tab key='3' title='3반' />
-          <Tab key='4' title='4반' />
-        </Tabs>
-        <Tabs aria-label='Status' color='success'>
-          <Tab key='0' title='전체' />
-          <Tab key='1' title='입금대기' />
-          <Tab key='2' title='입금확인중' />
-          <Tab key='3' title='입금완료' />
-          <Tab key='4' title='수령완료' />
-        </Tabs>
+        <WeekdayTabs all ariaLabel='SurveyWeekdays' />
+        <GroupTabs color='warning' ariaLabel='SurveyGroups' />
+        <StatusTabs color='success' ariaLabel='SurveyStatus' />
+
         <p>상태 변경</p>
         <div className='flex'>
           <Button color='primary'>입금확인중</Button>
           <Button color='primary'>입금완료</Button>
           <Button color='primary'>주문취소</Button>
         </div>
-        <div className='flex'>
-          <Chip startContent={<p className='pl-2'>월</p>} variant='shadow' color='warning'>
-            16/20
-          </Chip>
-          <Chip startContent={<p className='pl-2'>화</p>} variant='bordered'>
-            16/20
-          </Chip>
-          <Chip startContent={<p className='pl-2'>수</p>} variant='bordered'>
-            16/20
-          </Chip>
-          <Chip startContent={<p className='pl-2'>목</p>} variant='bordered'>
-            16/20
-          </Chip>
-          <Chip startContent={<p className='pl-2'>금</p>} variant='bordered'>
-            16/20
-          </Chip>
-        </div>
+        <AchievementChips achievement={achievement} color='warning' />
       </div>
       <Table
         aria-label='Example static collection table'

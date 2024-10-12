@@ -1,23 +1,13 @@
 'use client';
 
-import { Button, Tab, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tabs } from '@nextui-org/react';
+import { Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react';
+import WeekdayTabs from '../molecules/WeekdayTabs';
 
 export default function PickupTemplate() {
   return (
     <>
       <div className='flex flex-wrap gap-4 mb-4'>
-        <Tabs
-          variant='underlined'
-          color='primary'
-          aria-label='Tabs variants'
-          defaultSelectedKey={new Date(Date.now()).getDay()}
-        >
-          <Tab key='1' title='월' />
-          <Tab key='2' title='화' />
-          <Tab key='3' title='수' />
-          <Tab key='4' title='목' />
-          <Tab key='5' title='금' />
-        </Tabs>
+        <WeekdayTabs ariaLabel='PickupWeekdays' defaultSelectedKey={new Date(Date.now()).getDay()} />
       </div>
       <Table aria-label='Example static collection table' fullWidth>
         <TableHeader>
