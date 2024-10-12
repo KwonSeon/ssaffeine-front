@@ -8,19 +8,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
         region: { label: 'Region', type: 'text', placeholder: 'Region' },
-        SClass: { label: 'SClass', type: 'text', placeholder: 'Class' },
+        group: { label: 'group', type: 'text', placeholder: 'Class' },
         name: { label: 'Name', type: 'text', placeholder: 'Your Name' },
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
-        const { region, SClass, name, password } = credentials;
+        const { region, group, name, password } = credentials;
 
         // 임시 사용자 데이터
         const dummyUser = {
           uuid: 1,
           name: 'John Doe',
           region: 'Seoul',
-          SClass: 'A',
+          group: 'A',
           password: 'test123', // 테스트용 비밀번호
         };
 
@@ -29,13 +29,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name === dummyUser.name &&
           password === dummyUser.password &&
           region === dummyUser.region &&
-          SClass === dummyUser.SClass
+          group === dummyUser.group
         ) {
           return {
             uuid: dummyUser.uuid,
             name: dummyUser.name,
             region: dummyUser.region,
-            SClass: dummyUser.SClass,
+            group: dummyUser.group,
             accessToken: 'dummy-accessToken',
           };
         } else {
@@ -53,7 +53,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // // logic to verify if the user exists
         // // session에 저장할 사용자 정보를 가져옴
         // // TODO: 로그인 api로 변경
-        // user = await getUserFromDb(region, SClass, name, pwHash);
+        // user = await getUserFromDb(region, group, name, pwHash);
 
         // if (!user) {
         //   // No user found, so this is their first attempt to login

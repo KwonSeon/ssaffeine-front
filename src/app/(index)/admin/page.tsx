@@ -1,5 +1,9 @@
-import React from 'react';
+import SurveyDashboardTemplate from '@/components/template/SurveyDashboardTemplate';
 
 export default function page() {
-  return <div>admin</div>;
+  return (
+    <>
+      <SurveyDashboardTemplate />
+    </>
+  );
 }

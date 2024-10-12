@@ -1,23 +1,34 @@
-import Image from "next/image";
-import Link from "next/link";
-import AchievementMeter from "../molecules/AchievementMeter";
-import Menu from "../molecules/Menu";
+'use client';
+import { Image, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle } from '@nextui-org/react';
+import Link from 'next/link';
+import AchievementMeter from '../molecules/AchievementMeter';
+import HeadersMenu from '../molecules/HeadersMenu';
+import Menu from '../molecules/Menu';
+import { useState } from 'react';
 
-//test
-export default function Header() {
+export default function Headers() {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
-    <nav className="bg-slate-400 flex justify-between p-4">
-      <div className="flex gap-4 ">
-        <Link href={"/"}>
-          <Image src={"/img/ssaffeine_logo.png"} width={200} height={100} alt="logo" />
+    <Navbar isBordered className='w-full' isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+      <NavbarBrand className='max-w-[100px]'>
+        <Link href={'/'}>
+          <Image src={'/img/ssaffeine_logo.png'} width={100} alt='logo' />
         </Link>
-
-        <div>
+      </NavbarBrand>
+      <NavbarContent className='hidden lg:flex'>
+        <NavbarItem>
           <AchievementMeter achievement={20} />
-        </div>
+        </NavbarItem>
+      </NavbarContent>
+      <NavbarContent justify='end' className='w-full hidden lg:flex'>
+        <Menu />
+      </NavbarContent>
+      <NavbarContent justify='end' className='lg:hidden'>
+        <NavbarMenuToggle />
+      </NavbarContent>
+      <div className='flex lg:hidden'>
+        <HeadersMenu setIsMenuOpen={setIsMenuOpen} />
       </div>
-
-      <Menu />
-    </nav>
+    </Navbar>
   );
 }
