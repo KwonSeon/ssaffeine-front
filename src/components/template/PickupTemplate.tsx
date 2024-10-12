@@ -1,10 +1,24 @@
 'use client';
 
-import { Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react';
+import { Button, Tab, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tabs } from '@nextui-org/react';
 
 export default function PickupTemplate() {
   return (
     <>
+      <div className='flex flex-wrap gap-4 mb-4'>
+        <Tabs
+          variant='underlined'
+          color='primary'
+          aria-label='Tabs variants'
+          defaultSelectedKey={new Date(Date.now()).getDay()}
+        >
+          <Tab key='1' title='월' />
+          <Tab key='2' title='화' />
+          <Tab key='3' title='수' />
+          <Tab key='4' title='목' />
+          <Tab key='5' title='금' />
+        </Tabs>
+      </div>
       <Table aria-label='Example static collection table' fullWidth>
         <TableHeader>
           <TableColumn>음료 수령 여부</TableColumn>

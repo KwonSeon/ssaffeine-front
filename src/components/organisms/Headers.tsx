@@ -1,12 +1,15 @@
+'use client';
+import { Image, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle } from '@nextui-org/react';
 import Link from 'next/link';
 import AchievementMeter from '../molecules/AchievementMeter';
+import HeadersMenu from '../molecules/HeadersMenu';
 import Menu from '../molecules/Menu';
-import { Image, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuToggle } from '@nextui-org/react';
+import { useState } from 'react';
 
-//test
 export default function Headers() {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
-    <Navbar isBordered className='w-full'>
+    <Navbar isBordered className='w-full' isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarBrand className='max-w-[100px]'>
         <Link href={'/'}>
           <Image src={'/img/ssaffeine_logo.png'} width={100} alt='logo' />
@@ -23,9 +26,9 @@ export default function Headers() {
       <NavbarContent justify='end' className='lg:hidden'>
         <NavbarMenuToggle />
       </NavbarContent>
-      <NavbarMenu className='lg:hidden'>
-        <Menu isMobile />
-      </NavbarMenu>
+      <div className='flex lg:hidden'>
+        <HeadersMenu setIsMenuOpen={setIsMenuOpen} />
+      </div>
     </Navbar>
   );
 }

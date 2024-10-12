@@ -1,64 +1,36 @@
 'use client';
-import { Button, NavbarItem, NavbarMenuItem } from '@nextui-org/react';
+import { Button, NavbarItem } from '@nextui-org/react';
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function Menu({ isMobile }: { isMobile?: boolean }) {
+export default function Menu() {
   const [state, setState] = useState<boolean>(false);
 
   const handleClick = () => {
     setState(!state);
   };
 
-  return isMobile ? (
-    <>
-      <NavbarMenuItem className='justify-end flex'>
-        <Button variant='light' size='lg'>
-          <Link href='/order'>주문하기</Link>
-        </Button>
-      </NavbarMenuItem>
-      <NavbarMenuItem className='justify-end flex'>
-        <Button variant='light' size='lg'>
-          <Link href='/notice'>공지사항</Link>
-        </Button>
-      </NavbarMenuItem>
-      <NavbarMenuItem className='justify-end flex'>
-        <Button variant='light' size='lg'>
-          <Link href='/mypage'>마이페이지</Link>
-        </Button>
-      </NavbarMenuItem>
-      <NavbarMenuItem className='justify-end flex'>
-        <Button variant='light' size='lg'>
-          <Link href='/admin'>관리자페이지</Link>
-        </Button>
-      </NavbarMenuItem>
-      <NavbarMenuItem className='justify-end flex'>
-        <Button variant='light' size='lg'>
-          <Link href='/admin'>로그인</Link>
-        </Button>
-      </NavbarMenuItem>
-    </>
-  ) : (
+  return (
     <>
       <NavbarItem>
-        <Button variant='light'>
-          <Link href='/order'>주문하기</Link>
-        </Button>
+        <Link href='/order'>
+          <Button variant='light'>주문하기</Button>
+        </Link>
       </NavbarItem>
       <NavbarItem>
-        <Button variant='light'>
-          <Link href='/notice'>공지사항</Link>
-        </Button>
+        <Link href='/notice'>
+          <Button variant='light'>공지사항</Button>
+        </Link>
       </NavbarItem>
       <NavbarItem>
-        <Button variant='light'>
-          <Link href='/mypage'>마이페이지</Link>
-        </Button>
+        <Link href='/mypage'>
+          <Button variant='light'>마이페이지</Button>
+        </Link>
       </NavbarItem>
       <NavbarItem>
-        <Button variant='light'>
-          <Link href='/admin'>관리자페이지</Link>
-        </Button>
+        <Link href='/admin'>
+          <Button variant='light'>관리자페이지</Button>
+        </Link>
       </NavbarItem>
       <NavbarItem>
         <Button color='primary' variant='shadow' onClick={handleClick}>

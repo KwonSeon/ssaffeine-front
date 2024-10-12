@@ -4,7 +4,7 @@ import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Key, useEffect, useState } from 'react';
 
-export default function AdminTabs() {
+export default function UserTabs() {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -52,11 +52,11 @@ export default function AdminTabs() {
           color='primary'
           className='overflow-hidden'
         >
-          <Tab key='/admin' title='주문현황' />
-          <Tab key='/admin/print' title='주문서 출력' />
-          <Tab key='/admin/pickup' title='음료 수령' />
-          <Tab key='/admin/survey' title='주문 생성' />
-          <Tab key='/admin/notice' title='공지사항' />
+          <Tab key='/mypage' title='주문현황' />
+          <Tab key='/mypage/print' title='주문서 출력' />
+          <Tab key='/mypage/pickup' title='음료 수령' />
+          <Tab key='/mypage/survey' title='주문 생성' />
+          <Tab key='/mypage/notice' title='공지사항' />
         </Tabs>
       </CardBody>
     </Card>
