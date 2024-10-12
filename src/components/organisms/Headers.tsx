@@ -1,13 +1,14 @@
 'use client';
 import { Image, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle } from '@nextui-org/react';
 import Link from 'next/link';
+import { useState } from 'react';
 import AchievementMeter from '../molecules/AchievementMeter';
 import HeadersMenu from '../molecules/HeadersMenu';
 import Menu from '../molecules/Menu';
-import { useState } from 'react';
 
 export default function Headers() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
   return (
     <Navbar isBordered className='w-full' isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarBrand className='max-w-[100px]'>

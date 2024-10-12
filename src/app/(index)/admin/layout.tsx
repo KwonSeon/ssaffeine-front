@@ -1,7 +1,15 @@
+import { auth } from '@/auth';
 import AdminTabs from '@/components/molecules/AdminTabs';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default async function layout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+
+  if (!session) {
+    redirect('/');
+  }
+
   return (
     <div className='flex p-4 flex-col lg:flex-row w-full'>
       <AdminTabs />

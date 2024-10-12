@@ -17,7 +17,7 @@ export default function UserTabs() {
   };
 
   // 메뉴바의 방향을 결정
-  let isVertical = useResizeMenubar();
+  const isVertical = useResizeMenubar();
 
   // 현재 경로를 기준으로 선택된 탭을 설정
   const selectedKey = (() => {
