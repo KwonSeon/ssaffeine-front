@@ -10,7 +10,7 @@ export default function StatusTabs({
   const status = ['전체', '주문확인', '입금대기', '입금확인중', '입금완료'];
   return (
     <>
-      <Tabs aria-label={ariaLabel} color='success'>
+      <Tabs aria-label={ariaLabel} color={color}>
         {status.map((status, index) => (
           <Tab key={index} title={status} />
         ))}
