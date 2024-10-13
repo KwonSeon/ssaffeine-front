@@ -78,12 +78,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return token;
     },
-    // async redirect({ baseUrl, url }) {
-    //   if (url === '/logout-success') {
-    //     return `${baseUrl}/`; // 로그아웃 후 홈으로 이동
-    //   }
-    //   console.log('redirect', baseUrl);
-    //   return baseUrl;
-    // },
   },
 });

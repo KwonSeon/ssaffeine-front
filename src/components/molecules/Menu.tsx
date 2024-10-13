@@ -1,21 +1,26 @@
 'use client';
-import { Button, NavbarItem } from '@nextui-org/react';
-import { useSession } from 'next-auth/react';
+import { Button, NavbarItem, useDisclosure } from '@nextui-org/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import SigninModal from '../organisms/SigninModal';
 
 export default function Menu() {
-  const [state, setState] = useState<boolean>(false);
-
-  const handleClick = () => {
-    setState(!state);
-  };
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const router = useRouter();
 
   const session = useSession();
   console.log(session);
   const role = session?.data?.user?.role;
+
+  const handleSignOut = async () => {
+    await signOut({
+      redirect: false,
+    });
+
+    onClose();
+    router.refresh();
+  };
 
   return (
     <>
@@ -41,12 +46,23 @@ export default function Menu() {
           </Button>
         </NavbarItem>
       )}
-      <NavbarItem>
-        {/* TODO: 로그인, 로그아웃 처리 시 리다이렉트 */}
-        <Button color='primary' variant='shadow' onClick={handleClick}>
-          {state ? '로그아웃' : '로그인'}
-        </Button>
-      </NavbarItem>
+
+      {session.status == 'authenticated' ? (
+        <>
+          <Button color='primary' variant='shadow' onPress={handleSignOut}>
+            로그아웃
+          </Button>
+        </>
+      ) : (
+        <>
+          <NavbarItem>
+            <Button color='primary' variant='shadow' onPress={onOpen}>
+              로그인
+            </Button>
+          </NavbarItem>
+          {isOpen && <SigninModal isOpen={isOpen} onOpenChange={onOpenChange} />}
+        </>
+      )}
     </>
   );
 }
