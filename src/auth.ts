@@ -39,6 +39,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           region: '부울경',
           group: 4,
           name: '권선',
+          uuid: '1259815',
           password: '1234',
           role: 'admin',
           accessToken: 'someAccessToken', // Add this line
@@ -73,6 +74,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           region: user.region,
           group: user.group,
           name: user.name,
+          uuid: user.uuid,
           role: user.role,
         };
       }

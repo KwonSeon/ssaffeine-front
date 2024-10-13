@@ -1,4 +1,4 @@
-import NumberToDay from '@/util/NumberToDay';
+import formatNumberToDay from '@/utils/formatNumberToDay';
 import { Chip } from '@nextui-org/react';
 
 export default function AchievementChips({
@@ -19,7 +19,7 @@ export default function AchievementChips({
       {achievement.map((achievement, index) => (
         <Chip
           key={index}
-          startContent={<p className='pl-2'>{NumberToDay(achievement.day)}</p>}
+          startContent={<p className='pl-2'>{formatNumberToDay(achievement.day)}</p>}
           variant={achievement.achievement >= achievementGoal ? 'shadow' : 'bordered'}
           color={color}
           className={className}

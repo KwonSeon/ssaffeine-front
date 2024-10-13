@@ -10,7 +10,6 @@ export default function Menu() {
   const router = useRouter();
 
   const session = useSession();
-  console.log(session);
   const role = session?.data?.user?.role;
 
   const handleSignOut = async () => {

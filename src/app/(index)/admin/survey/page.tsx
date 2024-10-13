@@ -1,9 +1,11 @@
-import SurveyTemplate from '@/components/template/SurveyTemplate';
+'use client';
 
-export default function page() {
-  return (
-    <>
-      <SurveyTemplate />
-    </>
-  );
+import { useEffect } from 'react';
+
+export default function Page() {
+  // const { nextSurveyState, nextSurveyDispatch } = useAdminContext();
+
+  useEffect(() => {}, []);
+
+  return <></>;
 }

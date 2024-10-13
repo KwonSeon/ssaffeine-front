@@ -2,14 +2,15 @@
 
 import useResizeMenubar from '@/hook/useResizeMenubar';
 import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
+import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Key } from 'react';
 
 export default function UserTabs() {
   const pathname = usePathname();
   const router = useRouter();
-  // TODO: uuid 경로 수정
-  const uuid = '1234-abcd'; // 실제로 이 부분을 동적으로 설정
+  const session = useSession();
+  const uuid = session?.data?.user?.uuid;
 
   const handleTabChange = (key: Key) => {
     const path = String(key); // Key를 string으로 변환
