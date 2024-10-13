@@ -1,7 +1,7 @@
 import { Progress } from '@nextui-org/react';
 
 export default function AchievementMeter({
-  achievement,
+  achievement = 0,
   achievementGaol = 20,
 }: {
   achievement: number;
