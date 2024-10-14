@@ -1,20 +1,22 @@
 'use client';
 import {
   Button,
-  Chip,
+  getKeyValue,
   Selection,
-  Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
   TableRow,
 } from '@nextui-org/react';
-import { useState } from 'react';
-import AchievementChips from '../molecules/AchievementChips';
+import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 import GroupTabs from '../molecules/GroupTabs';
 import StatusTabs from '../molecules/StatusTabs';
 import WeekdayTabs from '../molecules/WeekdayTabs';
+
+const AchievementChips = dynamic(() => import('../molecules/AchievementChips'));
+const DynamicTable = dynamic(() => import('@nextui-org/react').then((mod) => mod.Table), { ssr: false });
 
 export default function SurveyDashboardTemplate() {
   const [selectedKey, setSelectedKey] = useState<Selection>(new Set([]));
@@ -27,13 +29,32 @@ export default function SurveyDashboardTemplate() {
     { day: 5, achievement: 16 },
   ];
 
+  const tableData = [
+    { key: '1', class: '1반', name: 'Tony Reichert', amount: 'CEO', paymentTime: 'Active' },
+    { key: '2', class: '2반', name: 'Technical Lead', amount: 'Paused', paymentTime: 'Paused' },
+    { key: '3', class: '3반', name: 'Senior Developer', amount: 'Active', paymentTime: 'Active' },
+    { key: '4', class: '4반', name: 'Community Manager', amount: 'Vacation', paymentTime: 'Vacation' },
+  ];
+
+  const columns = [
+    { key: 'class', label: '반' },
+    { key: 'name', label: '이름' },
+    { key: 'amount', label: '금액' },
+    { key: 'paymentTime', label: '입금시간' },
+    { key: 'status', label: '상태' },
+  ];
+
+  useEffect(() => {
+    console.log('selectedKey:', selectedKey);
+  }, [selectedKey]);
+
   return (
     <>
       <div className='flex flex-col overflow-auto w-full'>
         <WeekdayTabs all ariaLabel='SurveyWeekdays' />
         <GroupTabs color='warning' ariaLabel='SurveyGroups' />
-        <StatusTabs color='success' ariaLabel='SurveyStatus' />
 
+        <StatusTabs color='success' ariaLabel='SurveyStatus' />
         <p>상태 변경</p>
         <div className='flex'>
           <Button color='primary'>입금확인중</Button>
@@ -42,60 +63,23 @@ export default function SurveyDashboardTemplate() {
         </div>
         <AchievementChips achievement={achievement} color='warning' />
       </div>
-      <Table
-        aria-label='Example static collection table'
+      <DynamicTable
+        aria-label='주문현황'
         fullWidth
         isHeaderSticky
         selectionMode='multiple'
         selectedKeys={selectedKey}
         onSelectionChange={setSelectedKey}
       >
-        <TableHeader>
-          <TableColumn>반</TableColumn>
-          <TableColumn>이름</TableColumn>
-          <TableColumn>금액</TableColumn>
-          <TableColumn>입금시간</TableColumn>
-          <TableColumn align='center'>상태</TableColumn>
+        <TableHeader columns={columns}>
+          {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
         </TableHeader>
-        <TableBody>
-          <TableRow key='uuid-1'>
-            <TableCell>1반</TableCell>
-            <TableCell>Tony Reichert</TableCell>
-            <TableCell>CEO</TableCell>
-            <TableCell>Active</TableCell>
-            <TableCell>
-              <Chip color='success'>결제전</Chip>
-            </TableCell>
-          </TableRow>
-          <TableRow key='uuid-2'>
-            <TableCell>Zoey Lang</TableCell>
-            <TableCell>Technical Lead</TableCell>
-            <TableCell>Paused</TableCell>
-            <TableCell>Paused</TableCell>
-            <TableCell>
-              <Chip color='success'>결제전</Chip>
-            </TableCell>
-          </TableRow>
-          <TableRow key='uuid-3'>
-            <TableCell>Jane Fisher</TableCell>
-            <TableCell>Senior Developer</TableCell>
-            <TableCell>Active</TableCell>
-            <TableCell>Active</TableCell>
-            <TableCell>
-              <Chip color='success'>결제전</Chip>
-            </TableCell>
-          </TableRow>
-          <TableRow key='uuid-4'>
-            <TableCell>William Howard</TableCell>
-            <TableCell>Community Manager</TableCell>
-            <TableCell>Vacation</TableCell>
-            <TableCell>Vacation</TableCell>
-            <TableCell>
-              <Chip color='success'>결제전</Chip>
-            </TableCell>
-          </TableRow>
+        <TableBody items={tableData}>
+          {(item) => (
+            <TableRow key={item.key}>{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}</TableRow>
+          )}
         </TableBody>
-      </Table>
+      </DynamicTable>
     </>
   );
 }
