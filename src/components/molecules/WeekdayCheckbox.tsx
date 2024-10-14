@@ -2,6 +2,7 @@
 
 import useAdminContext from '@/context/AdminProvider';
 import { Checkbox, CheckboxGroup } from '@nextui-org/react';
+import { useEffect } from 'react';
 
 export default function WeekdayCheckbox() {
   // TODO: label 등 수정 필요
@@ -11,6 +12,13 @@ export default function WeekdayCheckbox() {
   const handleChange = (value: string[]) => {
     nextSurveyDispatch({ type: 'SET_WEEKDAYS', payload: value });
   };
+
+  // 처음 렌더링 시에 nextSurveyState.weekdays가 빈 배열이면 전체 요일을 선택하도록 함
+  useEffect(() => {
+    if (nextSurveyState.weekdays.length === 0) {
+      nextSurveyDispatch({ type: 'SET_WEEKDAYS', payload: ['1', '2', '3', '4', '5'] });
+    }
+  }, []);
 
   return (
     <>
