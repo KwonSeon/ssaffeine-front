@@ -1,3 +1,4 @@
+'use client';
 import { Tab, Tabs } from '@nextui-org/react';
 
 export default function StatusTabs({
@@ -12,7 +13,7 @@ export default function StatusTabs({
     <>
       <Tabs aria-label={ariaLabel} color={color}>
         {status.map((status, index) => (
-          <Tab key={index} title={status} />
+          <Tab key={`statustab-${index}`} title={status} />
         ))}
       </Tabs>
     </>

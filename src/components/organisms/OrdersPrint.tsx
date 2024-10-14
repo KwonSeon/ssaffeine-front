@@ -67,7 +67,7 @@ export default function OrdersPrint() {
   return (
     <>
       {data.map((date, index) => (
-        <OrdersPrintDate key={index} date={date} />
+        <OrdersPrintDate key={`orderprintdate-${index}`} date={date} />
       ))}
     </>
   );
