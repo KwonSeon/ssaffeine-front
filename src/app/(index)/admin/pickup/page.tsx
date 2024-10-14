@@ -1,9 +1,9 @@
-import PickupTemplate from '@/components/template/PickupTemplate';
+import PickupDashboard from '@/components/organisms/PickupDashboard';
 
 export default function page() {
   return (
     <>
-      <PickupTemplate />
+      <PickupDashboard />
     </>
   );
 }

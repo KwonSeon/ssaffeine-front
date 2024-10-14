@@ -1,9 +1,10 @@
 'use client';
 
 import { getKeyValue, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react';
+import PickupButton from '../atoms/PickupButton';
 import WeekdayTabs from '../molecules/WeekdayTabs';
 
-export default function PickupTemplate() {
+export default function PickupDashboard() {
   const pickupData = [
     {
       key: '1',
@@ -61,7 +62,11 @@ export default function PickupTemplate() {
         </TableHeader>
         <TableBody items={pickupData}>
           {(item) => (
-            <TableRow key={item.key}>{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}</TableRow>
+            <TableRow key={item.key}>
+              {(columnKey) => (
+                <TableCell>{columnKey === 'pickup' ? <PickupButton /> : getKeyValue(item, columnKey)}</TableCell>
+              )}
+            </TableRow>
           )}
         </TableBody>
       </Table>
