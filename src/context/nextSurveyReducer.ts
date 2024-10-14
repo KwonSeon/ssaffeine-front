@@ -6,6 +6,7 @@ export interface NextSurveyState {
 }
 
 export type NextSurveyAction =
+  | { type: 'SET_SURVEYS_ID'; payload: number }
   | { type: 'SET_WEEKDAYS'; payload: string[] }
   | { type: 'SET_START_DATE'; payload: string }
   | { type: 'SET_DEADLINE'; payload: string };
@@ -19,6 +20,11 @@ export const initialNextSurveyState = {
 
 export function nextSurveyReducer(state: NextSurveyState, action: NextSurveyAction): NextSurveyState {
   switch (action.type) {
+    case 'SET_SURVEYS_ID':
+      return {
+        ...state,
+        surveysId: action.payload,
+      };
     case 'SET_WEEKDAYS':
       return {
         ...state,

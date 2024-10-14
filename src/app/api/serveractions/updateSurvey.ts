@@ -4,7 +4,7 @@ import { auth } from '@/auth';
 import { NextSurveyState } from '@/context/nextSurveyReducer';
 import formatDayArrayToNum from '@/utils/formatDayArrayToNum';
 
-export default async function createSurvey(nextSurveysData: NextSurveyState) {
+export default async function updateSurvey(nextSurveysData: NextSurveyState) {
   const session = await auth();
   const token = session?.accessToken;
 
@@ -14,6 +14,7 @@ export default async function createSurvey(nextSurveysData: NextSurveyState) {
 
   const weekdays = formatDayArrayToNum(nextSurveysData.weekdays);
   const formData = {
+    surveysId: nextSurveysData.surveysId,
     weekdays: weekdays,
     startDate: nextSurveysData.startDate,
     deadline: nextSurveysData.deadline,
@@ -21,8 +22,8 @@ export default async function createSurvey(nextSurveysData: NextSurveyState) {
 
   try {
     // TODO: url 수정 필요
-    const res = await fetch(`${process.env.NEXT_PUBLIC_JSON_SERVER_URL}/survey`, {
-      method: 'POST',
+    const res = await fetch(`${process.env.NEXT_PUBLIC_JSON_SERVER_URL}/survey/${nextSurveysData.surveysId}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

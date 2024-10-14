@@ -1,7 +1,7 @@
 'use client';
 
 import useAdminContext from '@/context/AdminProvider';
-import formatDayjsToZoned from '@/utils/\bformatDayjsToZoned';
+import formatDayjsToZoned from '@/utils/formatDayjsToZoned';
 import formatZonedToDate from '@/utils/formatZonedToDate';
 import getNextFriday from '@/utils/getNextFriday';
 import getNextMonday from '@/utils/getNextMonday';
