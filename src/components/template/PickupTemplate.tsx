@@ -1,59 +1,68 @@
 'use client';
 
-import { Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react';
+import { getKeyValue, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react';
 import WeekdayTabs from '../molecules/WeekdayTabs';
 
 export default function PickupTemplate() {
+  const pickupData = [
+    {
+      key: '1',
+      id: 'pickup-1',
+      pickup: false,
+      class: '1반',
+      name: 'Tony Reichert',
+      menu: 'CEO',
+      option: 'Active',
+    },
+    {
+      key: '2',
+      id: 'pickup-2',
+      pickup: false,
+      class: '2반',
+      name: 'Zoey Lang',
+      menu: 'Technical Lead',
+      option: 'Paused',
+    },
+    {
+      key: '3',
+      id: 'pickup-3',
+      pickup: false,
+      class: '3반',
+      name: 'Jane Fisher',
+      menu: 'Senior Developer',
+      option: 'Active',
+    },
+    {
+      key: '4',
+      id: 'pickup-4',
+      pickup: false,
+      class: '4반',
+      name: 'William Howard',
+      menu: 'Community Manager',
+      option: 'Vacation',
+    },
+  ];
+
+  const columns = [
+    { key: 'pickup', title: '음료 수령 여부' },
+    { key: 'class', title: '반' },
+    { key: 'name', title: '이름' },
+    { key: 'menu', title: '메뉴' },
+    { key: 'option', title: '옵션' },
+  ];
   return (
     <>
       <div className='flex flex-wrap gap-4 mb-4'>
         <WeekdayTabs ariaLabel='PickupWeekdays' defaultSelectedKey={new Date(Date.now()).getDay()} />
       </div>
       <Table aria-label='Example static collection table' fullWidth>
-        <TableHeader>
-          <TableColumn>음료 수령 여부</TableColumn>
-          <TableColumn>반</TableColumn>
-          <TableColumn>이름</TableColumn>
-          <TableColumn>메뉴</TableColumn>
-          <TableColumn>옵션</TableColumn>
+        <TableHeader columns={columns}>
+          {(column) => <TableColumn key={column.key}>{column.title}</TableColumn>}
         </TableHeader>
-        <TableBody>
-          <TableRow key='1'>
-            <TableCell>
-              <Button>수령</Button>
-            </TableCell>
-            <TableCell>1반</TableCell>
-            <TableCell>Tony Reichert</TableCell>
-            <TableCell>CEO</TableCell>
-            <TableCell>Active</TableCell>
-          </TableRow>
-          <TableRow key='2'>
-            <TableCell>
-              <Button>수령</Button>
-            </TableCell>
-            <TableCell>2반</TableCell>
-            <TableCell>Zoey Lang</TableCell>
-            <TableCell>Technical Lead</TableCell>
-            <TableCell>Paused</TableCell>
-          </TableRow>
-          <TableRow key='3'>
-            <TableCell>
-              <Button>수령</Button>
-            </TableCell>
-            <TableCell>3반</TableCell>
-            <TableCell>Jane Fisher</TableCell>
-            <TableCell>Senior Developer</TableCell>
-            <TableCell>Active</TableCell>
-          </TableRow>
-          <TableRow key='4'>
-            <TableCell>
-              <Button>수령</Button>
-            </TableCell>
-            <TableCell>4반</TableCell>
-            <TableCell>William Howard</TableCell>
-            <TableCell>Community Manager</TableCell>
-            <TableCell>Vacation</TableCell>
-          </TableRow>
+        <TableBody items={pickupData}>
+          {(item) => (
+            <TableRow key={item.key}>{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}</TableRow>
+          )}
         </TableBody>
       </Table>
     </>

@@ -1,3 +1,4 @@
+'use client';
 import { Tab, Tabs } from '@nextui-org/react';
 
 export default function GroupTabs({
@@ -12,7 +13,7 @@ export default function GroupTabs({
     <>
       <Tabs aria-label={ariaLabel} color={color}>
         {group.map((group, index) => (
-          <Tab key={index} title={group} />
+          <Tab key={`grouptab-${index}`} title={group} />
         ))}
       </Tabs>
     </>

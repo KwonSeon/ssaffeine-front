@@ -18,7 +18,7 @@ export default function AchievementChips({
     <div className={`flex ${divClassName}`}>
       {achievement.map((achievement, index) => (
         <Chip
-          key={index}
+          key={`achievementchip-${index}`}
           startContent={<p className='pl-2'>{formatNumberToDay(achievement.day)}</p>}
           variant={achievement.achievement >= achievementGoal ? 'shadow' : 'bordered'}
           color={color}
