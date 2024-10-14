@@ -18,7 +18,7 @@ export default function UpdateSurvey() {
         <WeekdayCheckbox />
         <WeekdayDatePicker />
         <Button type='submit' onClick={handleUpdateSurvey}>
-          생성
+          수정
         </Button>
       </form>
     </>
