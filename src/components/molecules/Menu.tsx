@@ -1,14 +1,10 @@
 'use client';
-import { Button, NavbarItem, useDisclosure } from '@nextui-org/react';
+import { Button, NavbarItem } from '@nextui-org/react';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import SigninModal from '../organisms/SigninModal';
 
 export default function Menu() {
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-
   const router = useRouter();
-
   const session = useSession();
   const role = session?.data?.user?.role;
 
@@ -17,7 +13,6 @@ export default function Menu() {
       redirect: false,
     });
 
-    onClose();
     router.refresh();
   };
 
@@ -55,11 +50,10 @@ export default function Menu() {
       ) : (
         <>
           <NavbarItem>
-            <Button color='primary' variant='shadow' onPress={onOpen}>
+            <Button color='primary' variant='shadow' onPress={() => router.push('/auth/login')}>
               로그인
             </Button>
           </NavbarItem>
-          {isOpen && <SigninModal isOpen={isOpen} onOpenChange={onOpenChange} />}
         </>
       )}
     </>

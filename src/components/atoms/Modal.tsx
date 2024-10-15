@@ -21,13 +21,13 @@ export function Modal({ children, title }: { children: React.ReactNode; title?: 
       <div
         className={`${
           isFadingOut ? 'animate-fadeOut' : 'animate-fadeIn'
-        } bg-black opacity-50 w-[100vw] h-[100vh] fixed top-0 z-40`}
+        } bg-black opacity-50 w-[100vw] h-[100vh] fixed top-0 left-0 z-40`}
         onClick={closeModal}
       />
       <div
         className={`${
           isFadingOut ? 'animate-fadeOut' : 'animate-fadeIn'
-        } bg-white z-40 w-[400px] h-[400px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col rounded-lg`}
+        } bg-white z-40 w-[400px] h-fit fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col rounded-lg`}
         style={{
           animationDuration: '0.2s',
         }}

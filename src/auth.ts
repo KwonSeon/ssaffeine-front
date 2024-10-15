@@ -3,7 +3,8 @@ import credentials from 'next-auth/providers/credentials';
 import authConfig from './auth.config';
 
 class InvalidLoginError extends CredentialsSignin {
-  code = 'Invalid identifier or password';
+  loginId = '아이디가 일치하지 않습니다.';
+  password = '비밀번호가 일치하지 않습니다.';
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -18,12 +19,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        region: { label: 'Region', type: 'text' },
-        group: { label: 'Group', type: 'text' },
-        name: { label: 'Name', type: 'text' },
+        loginId: { label: 'loginId', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials: Partial<Record<'name' | 'region' | 'group' | 'password', unknown>>) {
+      async authorize(credentials: Partial<Record<'loginId' | 'password', unknown>>) {
         // const response = await fetch(`${process.env.NEXT_PUBLIC_JSON_SERVER_URL}/signin`, {
         //   method: 'POST',
         //   headers: { 'Content-Type': 'application/json' },
@@ -42,11 +41,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           uuid: '1259815',
           password: '1234',
           role: 'admin',
+          loginId: 'ssafy',
           accessToken: 'someAccessToken', // Add this line
         };
 
-        if (user.group != credentials.group || user.name != credentials.name || user.password != credentials.password)
-          throw new InvalidLoginError();
+        if (user.loginId != credentials.loginId) throw new InvalidLoginError().loginId;
+
+        if (user.password != credentials.password) throw new InvalidLoginError().password;
 
         return user;
       },

@@ -1,5 +1,5 @@
 'use client';
-import getAcheivementCount from '@/app/api/serveractions/getAcheivementCount';
+import getAcheivementCount from '@/app/api/actions/getAcheivementCount';
 import useSurveyContext from '@/context/SurveyIdProvider';
 import { Image, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle } from '@nextui-org/react';
 import dynamic from 'next/dynamic';

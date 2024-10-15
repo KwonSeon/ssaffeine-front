@@ -1,6 +1,6 @@
 'use client';
 
-import getSurveysId from '@/app/api/serveractions/getSurveysId';
+import getSurveysId from '@/app/api/actions/getSurveysId';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 interface SurveyIdContextType {

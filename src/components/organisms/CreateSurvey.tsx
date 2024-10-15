@@ -1,7 +1,7 @@
 'use client';
 
-import createSurvey from '@/app/api/serveractions/createSurvey';
-import getSurvey from '@/app/api/serveractions/getSurvey';
+import createSurvey from '@/app/api/actions/createSurvey';
+import getSurvey from '@/app/api/actions/getSurvey';
 import useAdminContext from '@/context/AdminProvider';
 import useSurveyIdContext from '@/context/SurveyIdProvider';
 import formatNumToDayArray from '@/utils/formatNumToDayArray';

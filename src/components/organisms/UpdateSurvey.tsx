@@ -1,6 +1,6 @@
 'use client';
 
-import updateSurvey from '@/app/api/serveractions/updateSurvey';
+import updateSurvey from '@/app/api/actions/updateSurvey';
 import useAdminContext from '@/context/AdminProvider';
 import { Button } from '@nextui-org/react';
 import { FormEvent } from 'react';

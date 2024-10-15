@@ -8,7 +8,9 @@ export default function Login() {
       <div className='h-full w-full'>
         <LoginForm />
       </div>
-      <Link href='/auth/signup'>회원가입</Link>
+      <div className='flex justify-end mt-4'>
+        <Link href='/auth/signup'>회원가입</Link>
+      </div>
     </Modal>
   );
 }
