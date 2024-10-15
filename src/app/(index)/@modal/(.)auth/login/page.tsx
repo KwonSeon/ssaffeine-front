@@ -1,5 +1,5 @@
-import { Modal } from '@/components/atoms/Modal';
+import Login from '@/components/organisms/Login';
 
 export default function page() {
-  return <Modal>login</Modal>;
+  return <Login />;
 }

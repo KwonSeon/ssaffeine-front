@@ -1,8 +1,11 @@
 'use client';
 import { Button, NavbarMenu, NavbarMenuItem } from '@nextui-org/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function HeadersMenu({ setIsMenuOpen }: { setIsMenuOpen: (value: boolean) => void }) {
+  const router = useRouter();
+
   return (
     <NavbarMenu className='text-right bg-white'>
       <NavbarMenuItem>
@@ -34,11 +37,16 @@ export default function HeadersMenu({ setIsMenuOpen }: { setIsMenuOpen: (value: 
         </Link>
       </NavbarMenuItem>
       <NavbarMenuItem>
-        <Link href='/admin' onClick={() => setIsMenuOpen(false)}>
-          <Button variant='light' size='lg'>
-            로그인
-          </Button>
-        </Link>
+        <Button
+          variant='light'
+          size='lg'
+          onClick={() => {
+            setIsMenuOpen(false);
+            router.push('/auth/login');
+          }}
+        >
+          로그인
+        </Button>
       </NavbarMenuItem>
     </NavbarMenu>
   );
