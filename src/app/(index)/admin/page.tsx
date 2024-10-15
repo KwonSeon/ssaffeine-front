@@ -1,9 +1,9 @@
-import SurveyDashboardTemplate from '@/components/template/SurveyDashboardTemplate';
+import SurveyDashboard from '@/components/organisms/SurveyDashboard';
 
 export default function page() {
   return (
     <>
-      <SurveyDashboardTemplate />
+      <SurveyDashboard />
     </>
   );
 }
