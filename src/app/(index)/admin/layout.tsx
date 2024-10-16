@@ -6,8 +6,9 @@ import React from 'react';
 
 export default async function layout({ children }: { children: React.ReactNode }) {
   const session = await auth();
+  const role = session?.user?.role;
 
-  if (!session) {
+  if (!session || (role !== 'ROLE_ADMIN_ADMIN' && role !== 'ROLE_ADMIN')) {
     redirect('/');
   }
 

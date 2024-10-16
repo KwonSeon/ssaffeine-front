@@ -3,36 +3,44 @@ import credentials from 'next-auth/providers/credentials';
 import authConfig from './auth.config';
 
 class InvalidLoginError extends CredentialsSignin {
-  code = 'Invalid identifier or password';
+  loginId = '아이디가 일치하지 않습니다.';
+  password = '비밀번호가 일치하지 않습니다.';
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  // pages: {
-  //   // signIn: '/auth/signin',
-  //   signIn: '/',
-  //   // signOut: '/auth/signout',
-  //   // newUser: '/auth/signup',
-  // },
+  pages: {
+    signIn: '/auth/signin',
+    // signOut: '/auth/signout',
+    newUser: '/auth/signup',
+  },
   providers: [
     credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
       // e.g. domain, username, password, 2FA token, etc.
-      credentials: {
-        region: { label: 'Region', type: 'text' },
-        group: { label: 'Group', type: 'text' },
-        name: { label: 'Name', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials: Partial<Record<'name' | 'region' | 'group' | 'password', unknown>>) {
-        // const response = await fetch(`${process.env.NEXT_PUBLIC_JSON_SERVER_URL}/signin`, {
+      // credentials: {
+      //   loginId: { label: 'loginId', type: 'text' },
+      //   password: { label: 'Password', type: 'password' },
+      // },
+      async authorize(credentials) {
+        // const res = await fetch(`${process.env.NEXT_PUBLIC_JSON_SERVER_URL}/signin`, {
         //   method: 'POST',
         //   headers: { 'Content-Type': 'application/json' },
         //   body: JSON.stringify(credentials),
         // });
 
-        // if (!response.ok) return null;
+        // if (!res.ok) return null;
 
-        // const user = await response.json();
+        // const user = await res.json();
+
+        // // JWT 토큰이 응답 헤더에 있다고 가정
+        // const accessToken = res.headers.get('Authorization')?.split('Bearer ')[1];
+
+        // // 만약 헤더에 accessToken이 없다면 에러를 던짐
+        // if (!accessToken) throw new Error('JWT 토큰이 없습니다.');
+
+        // return { ...user, accessToken };
+
+        console.log('credentials: ', credentials);
 
         // 임시 비밀번호
         const user = {
@@ -42,11 +50,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           uuid: '1259815',
           password: '1234',
           role: 'admin',
+          loginId: 'ssafy',
           accessToken: 'someAccessToken', // Add this line
         };
 
-        if (user.group != credentials.group || user.name != credentials.name || user.password != credentials.password)
-          throw new InvalidLoginError();
+        if (user.loginId != credentials.loginId) throw new InvalidLoginError().loginId;
+
+        if (user.password != credentials.password) throw new InvalidLoginError().password;
 
         return user;
       },

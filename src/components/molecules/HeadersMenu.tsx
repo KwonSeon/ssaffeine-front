@@ -1,8 +1,19 @@
 'use client';
 import { Button, NavbarMenu, NavbarMenuItem } from '@nextui-org/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function HeadersMenu({ setIsMenuOpen }: { setIsMenuOpen: (value: boolean) => void }) {
+  const router = useRouter();
+  const session = useSession();
+  const role = session?.data?.user?.role;
+
+  useEffect(() => {
+    console.log('session', session);
+  }, [session]);
+
   return (
     <NavbarMenu className='text-right bg-white'>
       <NavbarMenuItem>
@@ -26,19 +37,39 @@ export default function HeadersMenu({ setIsMenuOpen }: { setIsMenuOpen: (value: 
           </Button>
         </Link>
       </NavbarMenuItem>
+      {role === 'admin' && (
+        <NavbarMenuItem>
+          <Link href='/admin' onClick={() => setIsMenuOpen(false)}>
+            <Button variant='light' size='lg'>
+              관리자페이지
+            </Button>
+          </Link>
+        </NavbarMenuItem>
+      )}
       <NavbarMenuItem>
-        <Link href='/admin' onClick={() => setIsMenuOpen(false)}>
-          <Button variant='light' size='lg'>
-            관리자페이지
-          </Button>
-        </Link>
-      </NavbarMenuItem>
-      <NavbarMenuItem>
-        <Link href='/admin' onClick={() => setIsMenuOpen(false)}>
-          <Button variant='light' size='lg'>
+        {session.status === 'unauthenticated' ? (
+          <Button
+            variant='light'
+            size='lg'
+            onClick={() => {
+              setIsMenuOpen(false);
+              router.push('/auth/signin');
+            }}
+          >
             로그인
           </Button>
-        </Link>
+        ) : (
+          <Button
+            variant='light'
+            size='lg'
+            onClick={() => {
+              setIsMenuOpen(false);
+              signOut();
+            }}
+          >
+            로그아웃
+          </Button>
+        )}
       </NavbarMenuItem>
     </NavbarMenu>
   );

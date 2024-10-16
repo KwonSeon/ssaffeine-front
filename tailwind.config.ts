@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss';
 import { nextui } from '@nextui-org/react';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -28,6 +28,20 @@ const config: Config = {
           foreground: '#ffffff',
         },
         focus: '#7D5C3B',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '0.5' },
+        },
+        fadeOut: {
+          '0%': { opacity: '0.5' },
+          '100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.3s',
+        fadeOut: 'fadeOut 0.3s',
       },
     },
   },
