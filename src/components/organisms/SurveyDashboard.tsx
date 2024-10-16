@@ -1,6 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import GroupTabs from '../molecules/GroupTabs';
+import SemesterTabs from '../molecules/SemesterTabs';
 import StatusTabs from '../molecules/StatusTabs';
 import SurveyOrderStatus from '../molecules/SurveyOrderStatus';
 import SurveyOrderTable from '../molecules/SurveyOrderTable';
@@ -20,6 +21,7 @@ export default function SurveyDashboard() {
     <>
       <div className='flex flex-col overflow-auto w-full'>
         {/* <WeekdayTabs all ariaLabel='SurveyWeekdays' /> */}
+        <SemesterTabs color='primary' ariaLabel='SurveySemesters' />
         <GroupTabs color='warning' ariaLabel='SurveyGroups' />
 
         <StatusTabs color='success' ariaLabel='SurveyStatus' />

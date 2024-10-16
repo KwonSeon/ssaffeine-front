@@ -9,6 +9,7 @@ export default async function layout({ children }: { children: React.ReactNode }
   const role = session?.user?.role;
 
   if (!session || (role !== 'ROLE_ADMIN_ADMIN' && role !== 'ROLE_ADMIN')) {
+    console.log('role', role);
     redirect('/');
   }
 

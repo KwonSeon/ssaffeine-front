@@ -3,16 +3,11 @@ import { Button, NavbarMenu, NavbarMenuItem } from '@nextui-org/react';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
 export default function HeadersMenu({ setIsMenuOpen }: { setIsMenuOpen: (value: boolean) => void }) {
   const router = useRouter();
   const session = useSession();
   const role = session?.data?.user?.role;
-
-  useEffect(() => {
-    console.log('session', session);
-  }, [session]);
 
   return (
     <NavbarMenu className='text-right bg-white'>
@@ -37,9 +32,9 @@ export default function HeadersMenu({ setIsMenuOpen }: { setIsMenuOpen: (value: 
           </Button>
         </Link>
       </NavbarMenuItem>
-      {role === 'admin' && (
+      {role === 'ROLE_ADMIN' && (
         <NavbarMenuItem>
-          <Link href='/admin' onClick={() => setIsMenuOpen(false)}>
+          <Link href='/ROLE_ADMIN' onClick={() => setIsMenuOpen(false)}>
             <Button variant='light' size='lg'>
               관리자페이지
             </Button>

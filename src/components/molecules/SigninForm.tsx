@@ -16,10 +16,7 @@ export default function SigninForm() {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const handleSignIn = async (e: FormEvent) => {
-    console.log('handleSignIn');
     e.preventDefault();
-    console.log('loginId: ', loginId);
-    console.log('password: ', password);
 
     try {
       const res = await signIn('credentials', {
@@ -27,8 +24,6 @@ export default function SigninForm() {
         password: password,
         redirect: false,
       });
-
-      console.log('res:', res);
 
       if (!res?.ok) {
         console.log('로그인 실패:', res?.error);
