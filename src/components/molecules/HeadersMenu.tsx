@@ -53,7 +53,7 @@ export default function HeadersMenu({ setIsMenuOpen }: { setIsMenuOpen: (value: 
             size='lg'
             onClick={() => {
               setIsMenuOpen(false);
-              router.push('/auth/login');
+              router.push('/auth/signin');
             }}
           >
             로그인

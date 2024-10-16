@@ -3,26 +3,45 @@
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { Button, Input } from '@nextui-org/react';
 import { signIn } from 'next-auth/react';
-import { useState } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
 
-// const initialState = {
-//   message: '',
-// };
-
-export default function LoginForm() {
-  // const { state, formAction } = useFormState(login, initialState);
-  const { pending } = useFormStatus();
-
+export default function SigninForm() {
   const [isVisible, setIsVisible] = useState(false);
   const [loginId, setLoginId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const router = useRouter();
 
   // 비밀번호 보이기/숨기기
   const toggleVisibility = () => setIsVisible(!isVisible);
 
+  const handleSignIn = async (e: FormEvent) => {
+    console.log('handleSignIn');
+    e.preventDefault();
+    console.log('loginId: ', loginId);
+    console.log('password: ', password);
+
+    try {
+      const res = await signIn('credentials', {
+        loginId: loginId,
+        password: password,
+        redirect: false,
+      });
+
+      console.log('res:', res);
+
+      if (!res?.ok) {
+        console.log('로그인 실패:', res?.error);
+      }
+
+      router.back(); // 로그인 성공 후 이동할 페이지
+    } catch (error) {
+      console.error('Sign-in error:', error);
+    }
+  };
+
   return (
-    <form className='flex flex-col justify-around h-full gap-4'>
+    <form onSubmit={handleSignIn} className='flex flex-col justify-around h-full gap-4'>
       <div className='flex flex-col gap-2'>
         <Input
           isClearable
@@ -62,17 +81,7 @@ export default function LoginForm() {
           type={isVisible ? 'text' : 'password'}
         />
       </div>
-      <Button
-        type='submit'
-        color='primary'
-        disabled={pending}
-        onClick={() =>
-          signIn('credentials', {
-            loginId,
-            password,
-          })
-        }
-      >
+      <Button color='primary' type='submit'>
         로그인
       </Button>
     </form>

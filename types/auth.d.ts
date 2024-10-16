@@ -12,6 +12,7 @@ declare module 'next-auth' {
     name?: string;
     uuid?: string;
     role?: string;
+    loginId?: string;
   }
 
   interface Session extends DefaultSession {

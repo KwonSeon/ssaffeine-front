@@ -50,7 +50,7 @@ export default function Menu() {
       ) : (
         <>
           <NavbarItem>
-            <Button color='primary' variant='shadow' onPress={() => router.push('/auth/login')}>
+            <Button color='primary' variant='shadow' onPress={() => router.push('/auth/signin')}>
               로그인
             </Button>
           </NavbarItem>
