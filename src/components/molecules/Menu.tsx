@@ -33,7 +33,7 @@ export default function Menu() {
           마이페이지
         </Button>
       </NavbarItem>
-      {role === 'admin' && (
+      {role === 'ROLE_ADMIN' && (
         <NavbarItem>
           <Button variant='light' onClick={() => router.push('/admin')}>
             관리자페이지

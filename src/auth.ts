@@ -40,8 +40,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         // return { ...user, accessToken };
 
-        console.log('credentials: ', credentials);
-
         // 임시 비밀번호
         const user = {
           region: '부울경',
@@ -49,7 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: '권선',
           uuid: '1259815',
           password: '1234',
-          role: 'admin',
+          role: 'ROLE_ADMIN',
           loginId: 'ssafy',
           accessToken: 'someAccessToken', // Add this line
         };

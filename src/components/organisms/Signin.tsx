@@ -6,7 +6,6 @@ import SigninForm from '../molecules/SigninForm';
 
 export default async function Signin() {
   const session = await auth();
-  console.log('session:', session);
 
   if (session) {
     redirect('/');

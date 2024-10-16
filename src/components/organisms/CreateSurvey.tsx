@@ -36,7 +36,6 @@ export default function CreateSurvey() {
     e.preventDefault();
     // 주문 생성
     const create = await createSurvey(nextSurveyState);
-    console.log('create', create);
     // 주문 생성 후 초기화
     // TODO: 변수명 수정 필요
     nextSurveyDispatch({ type: 'SET_SURVEYS_ID', payload: create.id });

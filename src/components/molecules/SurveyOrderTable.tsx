@@ -10,12 +10,37 @@ export default function SurveyOrderTable() {
   const [selectedKey, setSelectedKey] = useState<Selection>(new Set([]));
 
   const tableData = [
-    { key: '1', class: '1반', name: 'Tony Reichert', amount: 'CEO', paymentTime: 'Active', status: '입금확인중' },
-    { key: '2', class: '2반', name: 'Technical Lead', amount: 'Paused', paymentTime: 'Paused', status: '입금확인중' },
-    { key: '3', class: '3반', name: 'Senior Developer', amount: 'Active', paymentTime: 'Active', status: '입금확인중' },
+    {
+      key: '1',
+      semester: '교육프로',
+      group: '1반',
+      name: 'Tony Reichert',
+      amount: 'CEO',
+      paymentTime: 'Active',
+      status: '입금확인중',
+    },
+    {
+      key: '2',
+      semester: '11기',
+      group: '2반',
+      name: 'Technical Lead',
+      amount: 'Paused',
+      paymentTime: 'Paused',
+      status: '입금확인중',
+    },
+    {
+      key: '3',
+      semester: '12기',
+      group: '3반',
+      name: 'Senior Developer',
+      amount: 'Active',
+      paymentTime: 'Active',
+      status: '입금확인중',
+    },
     {
       key: '4',
-      class: '4반',
+      semester: '12기',
+      group: '4반',
       name: 'Community Manager',
       amount: 'Vacation',
       paymentTime: 'Vacation',
@@ -24,7 +49,8 @@ export default function SurveyOrderTable() {
   ];
 
   const columns = [
-    { key: 'class', label: '반' },
+    { key: 'semester', label: '기수' },
+    { key: 'group', label: '반' },
     { key: 'name', label: '이름' },
     { key: 'amount', label: '금액' },
     { key: 'paymentTime', label: '입금시간' },
