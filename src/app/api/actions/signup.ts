@@ -25,6 +25,8 @@ export default async function signup(prevState: { message: string | null }, form
       cache: 'no-cache',
     });
 
+    console.log('res:', res.json());
+
     if (!res.ok) return { message: 'fail' };
 
     shouldRedirect = true;
