@@ -9,10 +9,10 @@ declare module 'next-auth' {
   interface User {
     region?: string;
     group?: number;
-    name?: string;
+    username?: string;
     uuid?: string;
+    semester?: number;
     role?: string;
-    loginId?: string;
   }
 
   interface Session extends DefaultSession {
@@ -25,5 +25,9 @@ declare module 'next-auth/jwt' {
   interface JWT {
     user?: User;
     accessToken?: string;
+  }
+
+  declare module 'jsonwebtoken' {
+    export function verify(token: string, secret: string): string | object;
   }
 }

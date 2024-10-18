@@ -14,6 +14,7 @@ export default function Menu() {
     });
 
     router.refresh();
+    router.push('/');
   };
 
   return (
