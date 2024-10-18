@@ -3,15 +3,11 @@
 import signup from '@/app/api/actions/signup';
 import { Autocomplete, AutocompleteItem, Button, Input } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
-
-const initialState: { message: string | null } = {
-  message: null,
-};
+import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
 
 export default function SignupForm() {
-  const [state, formAction] = useFormState(signup, initialState);
+  const [state, setState] = useState<string>('');
   const { pending } = useFormStatus();
   // const [semester, setSemester] = useState<number>(0);
   // const [region, setRegion] = useState<string>('E005');
@@ -47,21 +43,25 @@ export default function SignupForm() {
     { label: '4반', value: 4 },
   ];
 
-  useEffect(() => {
-    if (state?.message === 'success') {
-      router.push('/');
-      router.refresh();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const res = await signup(formData);
+    setState(res);
+
+    if (res === 'success') {
+      router.back();
     }
-  }, [state?.message, router]);
+  };
 
   return (
-    <form action={formAction} className='flex flex-col gap-2'>
+    <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
       <Autocomplete
         name='semester'
         defaultItems={semesterData}
         label='기수'
         placeholder='기수를 입력하세요'
-        isInvalid={state?.message === 'no_semester' ? true : false}
+        isInvalid={state === 'no_semester' ? true : false}
         errorMessage={'기수를 입력하세요'}
         required
       >
@@ -72,7 +72,7 @@ export default function SignupForm() {
         defaultItems={regionData}
         label='지역'
         placeholder='지역을 입력하세요'
-        isInvalid={state?.message === 'no_region' ? true : false}
+        isInvalid={state === 'no_region' ? true : false}
         errorMessage={'지역을 입력하세요'}
         required
       >
@@ -83,7 +83,7 @@ export default function SignupForm() {
         defaultItems={groupData}
         label='반'
         placeholder='반을 입력하세요'
-        isInvalid={state?.message === 'no_group' ? true : false}
+        isInvalid={state === 'no_group' ? true : false}
         errorMessage={'반을 입력하세요'}
         required
       >
@@ -104,7 +104,7 @@ export default function SignupForm() {
         name='loginId'
         variant='bordered'
         placeholder='아이디를 입력하세요'
-        isInvalid={state?.message === 'fail' ? true : false}
+        isInvalid={state === 'fail' ? true : false}
         errorMessage={'중복된 아이디입니다'}
         value={loginId}
         onValueChange={setLoginId}
