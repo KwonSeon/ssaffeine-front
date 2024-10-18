@@ -1,3 +1,4 @@
+'use client';
 import { Tab, Tabs } from '@nextui-org/react';
 
 export default function WeekdayTabs({
@@ -17,9 +18,9 @@ export default function WeekdayTabs({
   return (
     <>
       <Tabs variant={variant} color={color} aria-label={ariaLabel} defaultSelectedKey={defaultSelectedKey}>
-        {all && <Tab key='0' title='전체' />}
+        {all && <Tab key='weekday-0' title='전체' />}
         {week.map((day, index) => (
-          <Tab key={index + 1} title={day} />
+          <Tab key={`weekday-${index + 1}`} title={day} />
         ))}
       </Tabs>
     </>

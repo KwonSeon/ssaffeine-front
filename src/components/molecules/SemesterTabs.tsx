@@ -1,19 +1,19 @@
 'use client';
 import { Tab, Tabs } from '@nextui-org/react';
 
-export default function StatusTabs({
+export default function SemesterTabs({
   color,
   ariaLabel,
 }: {
   color: 'primary' | 'success' | 'warning' | 'secondary' | 'danger';
   ariaLabel?: string;
 }) {
-  const status = ['전체', '주문확인', '입금대기', '입금확인중', '입금완료'];
+  const semester = ['전체', '교육프로', '11기', '12기'];
   return (
     <>
       <Tabs aria-label={ariaLabel} color={color}>
-        {status.map((status, index) => (
-          <Tab key={`statustab-${index}`} title={status} />
+        {semester.map((semester, index) => (
+          <Tab key={`semestertab-${index}`} title={semester} />
         ))}
       </Tabs>
     </>

@@ -3,20 +3,13 @@
 import useAdminContext from '@/context/AdminProvider';
 
 export default function Layout({
-  children,
-  newSurvey,
+  createSurvey,
   updateSurvey,
 }: {
-  children: React.ReactNode;
-  newSurvey: React.ReactNode;
+  createSurvey: React.ReactNode;
   updateSurvey: React.ReactNode;
 }) {
   const { nextSurveyState } = useAdminContext();
 
-  return (
-    <>
-      {children}
-      {nextSurveyState.surveysId ? updateSurvey : newSurvey}
-    </>
-  );
+  return <>{nextSurveyState.surveysId ? updateSurvey : createSurvey}</>;
 }

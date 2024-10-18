@@ -1,12 +1,14 @@
 'use client';
-import getAcheivementCount from '@/app/api/serveractions/getAcheivementCount';
+import getAcheivementCount from '@/app/api/actions/getAcheivementCount';
 import useSurveyContext from '@/context/SurveyIdProvider';
 import { Image, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle } from '@nextui-org/react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import AchievementMeter from '../molecules/AchievementMeter';
 import HeadersMenu from '../molecules/HeadersMenu';
 import Menu from '../molecules/Menu';
+
+const AchievementMeter = dynamic(() => import('../molecules/AchievementMeter'));
 
 export default function Headers() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
