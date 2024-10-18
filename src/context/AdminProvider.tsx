@@ -1,6 +1,17 @@
 'use client';
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useState } from 'react';
 import { initialNextSurveyState, NextSurveyAction, nextSurveyReducer, NextSurveyState } from './nextSurveyReducer';
+
+// surveyOder 인터페이스를 선언합니다.
+interface SurveyOder {
+  orderId: number;
+  semester: number;
+  group: number;
+  name: string;
+  amount: number;
+  paymentTime: string;
+  status: string;
+}
 
 // AdminContextType 인터페이스를 선언합니다.
 interface AdminContextType {
@@ -17,6 +28,7 @@ const AdminContext = createContext<AdminContextType>({
 // AdminContextProvider 함수를 선언합니다.
 export function AdminContextProvider({ children }: { children: React.ReactNode }) {
   const [nextSurveyState, nextSurveyDispatch] = useReducer(nextSurveyReducer, initialNextSurveyState);
+  const [surveyOders, setSurveyOrders] = useState<SurveyOder[]>([]);
 
   return (
     <AdminContext.Provider
