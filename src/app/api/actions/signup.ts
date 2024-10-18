@@ -1,6 +1,6 @@
 'use server';
 
-import { redirect } from 'next/navigation';
+import { signIn } from '@/auth';
 
 export default async function signup(prevState: { message: string | null }, formData: FormData) {
   if (!formData.get('semester') || !(formData.get('semester') as string)?.trim()) {
@@ -13,6 +13,27 @@ export default async function signup(prevState: { message: string | null }, form
     return { message: 'no_group' };
   }
 
+  const semester = formData.get('semester') as string;
+  const semesterValue = () => {
+    if (semester === '교육프로') return 0;
+    return Number(semester.slice(0, semester.length - 1));
+  };
+
+  const region = formData.get('region') as string;
+  const regionValue = () => {
+    if (region === '서울') return 'E001';
+    if (region === '대전') return 'E002';
+    if (region === '구미') return 'E003';
+    if (region === '광주') return 'E004';
+    if (region === '부울경') return 'E005';
+  };
+
+  const group = formData.get('group') as string;
+  const groupValue = () => {
+    if (group === '교육프로') return 0;
+    return Number(group.slice(0, group.length - 1));
+  };
+
   let shouldRedirect = false;
 
   try {
@@ -21,23 +42,31 @@ export default async function signup(prevState: { message: string | null }, form
       headers: {
         'Content-Type': 'application/json',
       },
-      body: formData,
+      body: JSON.stringify({
+        username: formData.get('username'),
+        loginId: formData.get('loginId'),
+        password: formData.get('password'),
+        semester: semesterValue(),
+        region: regionValue(),
+        group: groupValue(),
+      }),
+      credentials: 'include',
       cache: 'no-cache',
     });
-
-    console.log('res:', res.json());
 
     if (!res.ok) return { message: 'fail' };
 
     shouldRedirect = true;
+
+    await signIn('credentials', {
+      loginId: formData.get('loginId'),
+      password: formData.get('password'),
+      redirect: false,
+    });
   } catch (error) {
     console.error('error:', error);
     return { message: null };
   }
 
-  if (shouldRedirect) {
-    redirect('/auth/signin');
-  }
-
-  return { message: null };
+  return { message: shouldRedirect ? 'success' : null };
 }

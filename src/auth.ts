@@ -10,11 +10,11 @@ import authConfig from './auth.config';
 // }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  pages: {
-    signIn: '/auth/signin',
-    // signOut: '/auth/signout',
-    newUser: '/auth/signup',
-  },
+  // pages: {
+  //   signIn: '/auth/signin',
+  //   // signOut: '/auth/signout',
+  //   newUser: '/auth/signup',
+  // },
   providers: [
     credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.

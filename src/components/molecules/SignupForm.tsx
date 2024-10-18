@@ -2,6 +2,7 @@
 
 import signup from '@/app/api/actions/signup';
 import { Autocomplete, AutocompleteItem, Button, Input } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 
@@ -12,13 +13,14 @@ const initialState: { message: string | null } = {
 export default function SignupForm() {
   const [state, formAction] = useFormState(signup, initialState);
   const { pending } = useFormStatus();
-  // const [semester, setSemester] = useState<string>('');
-  // const [region, setRegion] = useState<string>('부울경');
+  // const [semester, setSemester] = useState<number>(0);
+  // const [region, setRegion] = useState<string>('E005');
   // const [group, setGroup] = useState<number>(0);
   const [username, setUsername] = useState<string>('');
   const [loginId, setLoginId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const router = useRouter();
 
   // 지역
   const regionData = [
@@ -45,7 +47,12 @@ export default function SignupForm() {
     { label: '4반', value: 4 },
   ];
 
-  useEffect(() => {}, [state.message]);
+  useEffect(() => {
+    if (state?.message === 'success') {
+      router.push('/');
+      router.refresh();
+    }
+  }, [state?.message, router]);
 
   return (
     <form action={formAction} className='flex flex-col gap-2'>
@@ -54,45 +61,33 @@ export default function SignupForm() {
         defaultItems={semesterData}
         label='기수'
         placeholder='기수를 입력하세요'
-        isInvalid={state.message === 'no_semester' ? true : false}
+        isInvalid={state?.message === 'no_semester' ? true : false}
         errorMessage={'기수를 입력하세요'}
         required
       >
-        {(semesterData) => (
-          <AutocompleteItem key={semesterData.value} value={semesterData.value}>
-            {semesterData.label}
-          </AutocompleteItem>
-        )}
+        {(semesterData) => <AutocompleteItem key={semesterData.value}>{semesterData.label}</AutocompleteItem>}
       </Autocomplete>
       <Autocomplete
         name='region'
         defaultItems={regionData}
         label='지역'
         placeholder='지역을 입력하세요'
-        isInvalid={state.message === 'no_region' ? true : false}
+        isInvalid={state?.message === 'no_region' ? true : false}
         errorMessage={'지역을 입력하세요'}
         required
       >
-        {(regionData) => (
-          <AutocompleteItem key={regionData.value} value={regionData.value}>
-            {regionData.label}
-          </AutocompleteItem>
-        )}
+        {(regionData) => <AutocompleteItem key={regionData.value}>{regionData.label}</AutocompleteItem>}
       </Autocomplete>
       <Autocomplete
         name='group'
         defaultItems={groupData}
         label='반'
         placeholder='반을 입력하세요'
-        isInvalid={state.message === 'no_group' ? true : false}
+        isInvalid={state?.message === 'no_group' ? true : false}
         errorMessage={'반을 입력하세요'}
         required
       >
-        {(groupData) => (
-          <AutocompleteItem key={groupData.value} value={groupData.value}>
-            {groupData.label}
-          </AutocompleteItem>
-        )}
+        {(groupData) => <AutocompleteItem key={groupData.value}>{groupData.label}</AutocompleteItem>}
       </Autocomplete>
       <Input
         label='이름'
@@ -109,7 +104,7 @@ export default function SignupForm() {
         name='loginId'
         variant='bordered'
         placeholder='아이디를 입력하세요'
-        isInvalid={state.message === 'fail' ? true : false}
+        isInvalid={state?.message === 'fail' ? true : false}
         errorMessage={'중복된 아이디입니다'}
         value={loginId}
         onValueChange={setLoginId}
@@ -124,6 +119,8 @@ export default function SignupForm() {
         placeholder='비밀번호를 입력하세요'
         value={password}
         onValueChange={setPassword}
+        isInvalid={password.length < 8}
+        errorMessage='8자 이상 입력하세요'
         required
       />
       <Input
