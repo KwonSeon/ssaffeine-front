@@ -1,16 +1,14 @@
 'use server';
 
-import { signIn } from '@/auth';
-
-export default async function signup(prevState: { message: string | null }, formData: FormData) {
+export default async function signup(formData: FormData) {
   if (!formData.get('semester') || !(formData.get('semester') as string)?.trim()) {
-    return { message: 'no_semester' };
+    return 'no_semester';
   }
   if (!formData.get('region') || !(formData.get('region') as string)?.trim()) {
-    return { message: 'no_region' };
+    return 'no_region';
   }
   if (!formData.get('group') || !(formData.get('group') as string)?.trim()) {
-    return { message: 'no_group' };
+    return 'no_group';
   }
 
   const semester = formData.get('semester') as string;
@@ -54,19 +52,19 @@ export default async function signup(prevState: { message: string | null }, form
       cache: 'no-cache',
     });
 
-    if (!res.ok) return { message: 'fail' };
+    if (!res.ok) return 'fail';
 
     shouldRedirect = true;
 
-    await signIn('credentials', {
-      loginId: formData.get('loginId'),
-      password: formData.get('password'),
-      redirect: false,
-    });
+    // await signIn('credentials', {
+    //   loginId: formData.get('loginId'),
+    //   password: formData.get('password'),
+    //   redirect: false,
+    // });
   } catch (error) {
     console.error('error:', error);
-    return { message: null };
+    return 'fail';
   }
 
-  return { message: shouldRedirect ? 'success' : null };
+  return shouldRedirect ? 'success' : 'fail';
 }
