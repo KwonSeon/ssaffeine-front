@@ -60,6 +60,8 @@ export default function HeadersMenu({ setIsMenuOpen }: { setIsMenuOpen: (value: 
             onClick={() => {
               setIsMenuOpen(false);
               signOut();
+              router.refresh();
+              router.push('/');
             }}
           >
             로그아웃

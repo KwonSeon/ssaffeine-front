@@ -1,18 +1,20 @@
-import NextAuth, { CredentialsSignin } from 'next-auth';
+import jwt from 'jsonwebtoken';
+import NextAuth from 'next-auth';
 import credentials from 'next-auth/providers/credentials';
+import login from './app/api/actions/login';
 import authConfig from './auth.config';
 
-class InvalidLoginError extends CredentialsSignin {
-  loginId = '아이디가 일치하지 않습니다.';
-  password = '비밀번호가 일치하지 않습니다.';
-}
+// class InvalidLoginError extends CredentialsSignin {
+//   loginId = '아이디가 일치하지 않습니다.';
+//   password = '비밀번호가 일치하지 않습니다.';
+// }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  pages: {
-    signIn: '/auth/signin',
-    // signOut: '/auth/signout',
-    newUser: '/auth/signup',
-  },
+  // pages: {
+  //   signIn: '/auth/signin',
+  //   // signOut: '/auth/signout',
+  //   newUser: '/auth/signup',
+  // },
   providers: [
     credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
@@ -22,41 +24,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       //   password: { label: 'Password', type: 'password' },
       // },
       async authorize(credentials) {
-        // const res = await fetch(`${process.env.NEXT_PUBLIC_JSON_SERVER_URL}/signin`, {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify(credentials),
-        // });
+        const res = await login(credentials.loginId as string, credentials.password as string);
 
-        // if (!res.ok) return null;
+        // const user = await res?.json();
 
-        // const user = await res.json();
+        // JWT 토큰이 응답 헤더에 있다고 가정
+        const accessToken = res?.headers.get('Authorization')?.split('Bearer ')[1];
 
-        // // JWT 토큰이 응답 헤더에 있다고 가정
-        // const accessToken = res.headers.get('Authorization')?.split('Bearer ')[1];
+        // 만약 헤더에 accessToken이 없다면 에러를 던짐
+        if (!accessToken) throw new Error('JWT 토큰이 없습니다.');
 
-        // // 만약 헤더에 accessToken이 없다면 에러를 던짐
-        // if (!accessToken) throw new Error('JWT 토큰이 없습니다.');
+        const decoded = jwt.verify(accessToken, process.env.NEXT_PUBLIC_JWT_SECRETKEY as string);
 
-        // return { ...user, accessToken };
-
-        // 임시 비밀번호
-        const user = {
-          region: '부울경',
-          group: 4,
-          name: '권선',
-          uuid: '1259815',
-          password: '1234',
-          role: 'ROLE_ADMIN',
-          loginId: 'ssafy',
-          accessToken: 'someAccessToken', // Add this line
+        const user = decoded as {
+          region: string;
+          group: number;
+          username: string;
+          uuid: string;
+          role: string;
+          semester: number;
         };
 
-        if (user.loginId != credentials.loginId) throw new InvalidLoginError().loginId;
-
-        if (user.password != credentials.password) throw new InvalidLoginError().password;
-
-        return user;
+        return { ...user, accessToken };
       },
     }),
   ],
@@ -72,6 +61,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.accessToken = token.accessToken ?? '';
       session.user = token.user;
 
+      // 세션을 `sessionStorage`에 저장, 클라이언트 종료 시 삭제
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('next-auth.session-token', token.accessToken ?? '');
+      }
+
       return session;
     },
     async jwt({ token, user }) {
@@ -81,7 +75,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.user = {
           region: user.region,
           group: user.group,
-          name: user.name,
+          username: user.username,
+          semester: user.semester,
           uuid: user.uuid,
           role: user.role,
         };
